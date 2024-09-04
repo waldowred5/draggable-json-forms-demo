@@ -1,32 +1,39 @@
 {
   "type": "object",
   "properties": {
+    "categoryInput": {
+      "type": "string"
+    },
+    "templateTitle": {
+      "type": "string",
+      "minLength": 1
+    },
     "name": {
       "type": "string",
       "minLength": 1
     },
-    "description": {
-      "title": "Long Description",
-      "type": "string"
-    },
-    "done": {
-      "type": "boolean"
-    },
-    "due_date": {
+    "lastName": {
       "type": "string",
-      "format": "date"
+      "minLength": 1
     },
-    "rating": {
-      "type": "integer",
-      "maximum": 5
-    },
-    "recurrence": {
+    "employmentStatus": {
       "type": "string",
-      "enum": ["Never", "Daily", "Weekly", "Monthly"]
+      "enum": [
+        "Full Time",
+        "Part Time",
+        "Casual",
+        "Unemployed",
+        "Other"
+      ]
     },
-    "recurrence_interval": {
-      "type": "integer"
+    "likesMovies": {
+      "type": "boolean",
+      "default": false
+    },
+    "favouriteMovie": {
+      "type": "string",
+      "minLength": 1
     }
   },
-  "required": ["name", "due_date"]
+  "required": ["templateTitle", "likesMovies"]
 }

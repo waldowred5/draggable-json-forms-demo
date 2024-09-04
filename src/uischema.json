@@ -2,54 +2,91 @@
   "type": "VerticalLayout",
   "elements": [
     {
-      "type": "Control",
-      "label": "Completed",
-      "scope": "#/properties/done"
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/name"
-    },
-    {
-      "type": "HorizontalLayout",
+      "type": "Categorization",
+      "options": {
+        "variant": "stepper"
+      },
       "elements": [
         {
-          "type": "Control",
-          "scope": "#/properties/due_date"
-        },
-        {
-          "type": "Control",
-          "scope": "#/properties/rating"
+          "type": "Category",
+          "label": "Section 0: Template Title",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/categoryInput"
+            }
+          ]
         }
       ]
     },
     {
-      "type": "HorizontalLayout",
+      "type": "Control",
+      "scope": "#/properties/templateTitle"
+    },
+    {
+      "type": "Group",
+      "label": "Section 1: Personal Details",
       "elements": [
         {
           "type": "Control",
-          "scope": "#/properties/recurrence"
+          "scope": "#/properties/name"
         },
         {
           "type": "Control",
-          "scope": "#/properties/recurrence_interval",
-          "rule": {
-            "effect": "HIDE",
-            "condition": {
-              "type": "LEAF",
-              "scope": "#/properties/recurrence",
-              "expectedValue": "Never"
+          "scope": "#/properties/lastName"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/likesMovies"
+        },
+        {
+          "type": "Group",
+          "label": "Section 1.1: Sub Group 1",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/name"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/lastName"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/likesMovies"
             }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Group",
+      "label": "Section 2: Work Details",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/employmentStatus"
+        }
+      ]
+    },
+    {
+      "type": "Group",
+      "label": "Section 3: Movie Preferences",
+      "rule": {
+        "effect": "HIDE",
+        "condition": {
+          "scope": "#/properties/likesMovies",
+          "schema": {
+            "const": false
           }
         }
+      },
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/favouriteMovie"
+        }
       ]
-    },
-    {
-      "type": "Control",
-      "scope": "#/properties/description",
-      "options": {
-        "multi": true
-      }
     }
   ]
 }

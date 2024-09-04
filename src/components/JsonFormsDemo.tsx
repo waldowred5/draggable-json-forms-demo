@@ -9,8 +9,13 @@ import {
 } from '@jsonforms/material-renderers';
 import RatingControl from './RatingControl';
 import ratingControlTester from '../ratingControlTester';
-import schema from '../schema.json';
-import uischema from '../uischema.json';
+import { sectionLayoutTester } from '../sectionLayoutTester';
+import initialSchema from '../schema.json';
+import initialUiSchema from '../uischema.json';
+import SectionLayout from './SectionLayout';
+import { init } from '@jsonforms/core';
+import { ControlledJsonForm } from './ControlledJsonForm';
+import { AddSection } from './AddSection';
 
 const classes = {
   container: {
@@ -39,26 +44,43 @@ const classes = {
 };
 
 const initialData = {
-  name: 'Send email to Adrian',
-  description: 'Confirm if you have passed the subject\nHereby ...',
-  done: true,
-  recurrence: 'Daily',
-  rating: 3,
+  likesMovies: false,
 };
 
 const renderers = [
   ...materialRenderers,
-  //register custom renderers
+  // register custom renderers
   { tester: ratingControlTester, renderer: RatingControl },
+  { tester: sectionLayoutTester, renderer: SectionLayout },
 ];
 
 export const JsonFormsDemo: FC = () => {
   const [data, setData] = useState<object>(initialData);
+  const [schema, setSchema] = useState(initialSchema);
+  const [uiSchema, setUiSchema] = useState(initialUiSchema);
+  const [errors, setErrors] = useState([]);
   const stringifiedData = useMemo(() => JSON.stringify(data, null, 2), [data]);
 
   const clearData = () => {
     setData({});
   };
+
+  const addSection = ({ label }) => {
+    setUiSchema({
+      ...uiSchema,
+      elements: [
+        ...uiSchema.elements,
+        {
+          "type": "Group",
+          "label": label,
+          "elements": [],
+        },
+      ],
+    });
+
+    console.log('schema', schema);
+  }
+
   return (
     <Grid
       container
@@ -82,14 +104,15 @@ export const JsonFormsDemo: FC = () => {
       <Grid item sm={6}>
         <Typography variant={'h4'}>Rendered form</Typography>
         <div style={classes.demoform}>
-          <JsonForms
-            schema={schema}
-            uischema={uischema}
+          <ControlledJsonForm
             data={data}
+            schema={schema}
+            uischema={uiSchema}
+            errors={errors}
             renderers={renderers}
-            cells={materialCells}
-            onChange={({ data }) => setData(data)}
+            setData={setData}
           />
+          <AddSection onClick={addSection} />
         </div>
       </Grid>
     </Grid>
