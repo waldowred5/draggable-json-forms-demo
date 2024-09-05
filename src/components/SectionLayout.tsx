@@ -26,10 +26,7 @@ const SectionLayout = (props) => {
   return (
     <>
       {props.visible ?
-        <div style={{
-          height: '100%',
-          width: '100%'
-        }}>
+        <div className="w-full flex flex-col">
           <div
             style={{
               border: '2px dashed #cccccc',
@@ -42,7 +39,7 @@ const SectionLayout = (props) => {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-            <Typography>{uischema.label}</Typography>
+            {/*<div>{uischema.label}</div>*/}
             <MaterialLayoutRenderer {...layoutProps} />
             <div style={{
               display: 'flex',

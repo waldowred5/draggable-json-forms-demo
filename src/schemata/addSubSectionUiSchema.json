@@ -1,0 +1,10 @@
+{
+  "type": "Group",
+  "label": "New Sub Section",
+  "elements": {
+    "sectionTitle": {
+      "type": "Control",
+      "scope": "#/properties/subSectionTitle"
+    }
+  }
+}

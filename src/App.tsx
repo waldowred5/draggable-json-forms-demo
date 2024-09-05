@@ -4,10 +4,12 @@ import { JsonFormsDemo } from './components/JsonFormsDemo';
 
 const App = () => {
   return (
-    <>
-      <Header />
-      <JsonFormsDemo />
-    </>
+    <div className={'flex w-screen h-screen'}>
+      <div className={'flex flex-col flex-grow h-full'}>
+        <Header />
+        <JsonFormsDemo />
+      </div>
+    </div>
   );
 };
 

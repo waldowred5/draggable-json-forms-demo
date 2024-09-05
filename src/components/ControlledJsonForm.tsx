@@ -1,7 +1,5 @@
 import { JsonForms } from '@jsonforms/react';
 import { materialCells } from '@jsonforms/material-renderers';
-import { useCallback } from 'react';
-import { INIT, UPDATE_DATA } from '@jsonforms/core';
 
 export const ControlledJsonForm = (
   {
@@ -12,21 +10,6 @@ export const ControlledJsonForm = (
     renderers,
     setData,
  }: any) => {
-  const middleware = useCallback(
-    (state, action, defaultReducer) => {
-      const newState = defaultReducer(state, action);
-      switch (action.type) {
-        case INIT:
-        case UPDATE_DATA: {
-          setData(newState.data);
-          // validateActivity(newState.data);
-          return state;
-        }
-        default:
-          return newState;
-      }
-    },[]
-  );
 
   return (
     <JsonForms
@@ -34,7 +17,6 @@ export const ControlledJsonForm = (
       schema={schema}
       uischema={uischema}
       renderers={renderers}
-      // middleware={middleware}
       additionalErrors={errors}
       validationMode='NoValidation'
       cells={materialCells}

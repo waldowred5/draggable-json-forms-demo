@@ -1,0 +1,37 @@
+{
+  "type": "Group",
+  "label": "Add Question",
+  "elements": [
+    {
+      "type": "Control",
+      "label": "Question",
+      "scope": "#/properties/question"
+    },
+    {
+      "type": "Control",
+      "label": "Response Type",
+      "scope": "#/properties/questionResponseType"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/responseRequired",
+      "options": {
+        "toggle": true
+      }
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/allowAttachments",
+      "options": {
+        "toggle": true
+      }
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/allowAdditionalComments",
+      "options": {
+        "toggle": true
+      }
+    }
+  ]
+}

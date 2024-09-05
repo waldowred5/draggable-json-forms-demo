@@ -1,18 +1,35 @@
 {
   "type": "object",
   "properties": {
-    "categoryInput": {
-      "type": "string"
-    },
     "templateTitle": {
       "type": "string",
       "minLength": 1
     },
-    "name": {
+    "section0": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lastName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "likesMovies": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "categoryInput": {
+      "type": "string"
+    },
+    "homeAddress": {
       "type": "string",
       "minLength": 1
     },
-    "lastName": {
+    "deliveryAddress": {
       "type": "string",
       "minLength": 1
     },
@@ -25,10 +42,6 @@
         "Unemployed",
         "Other"
       ]
-    },
-    "likesMovies": {
-      "type": "boolean",
-      "default": false
     },
     "favouriteMovie": {
       "type": "string",

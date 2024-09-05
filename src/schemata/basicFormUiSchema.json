@@ -2,58 +2,45 @@
   "type": "VerticalLayout",
   "elements": [
     {
-      "type": "Categorization",
-      "options": {
-        "variant": "stepper"
-      },
-      "elements": [
-        {
-          "type": "Category",
-          "label": "Section 0: Template Title",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/categoryInput"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "type": "Control",
       "scope": "#/properties/templateTitle"
     },
     {
       "type": "Group",
       "label": "Section 1: Personal Details",
+      "id": "blergenheim1",
       "elements": [
         {
           "type": "Control",
-          "scope": "#/properties/name"
+          "scope": "#/properties/section0/properties/firstName"
         },
         {
           "type": "Control",
-          "scope": "#/properties/lastName"
+          "scope": "#/properties/section0/properties/lastName"
         },
         {
           "type": "Control",
-          "scope": "#/properties/likesMovies"
+          "scope": "#/properties/section0/properties/likesMovies"
         },
         {
           "type": "Group",
-          "label": "Section 1.1: Sub Group 1",
+          "label": "Section 1.1: Home Address",
+          "id": "blergenheim1.1",
           "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/name"
-            },
+              "scope": "#/properties/homeAddress"
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Section 1.2: Delivery Address",
+          "id": "blergenheim1.2",
+          "elements": [
             {
               "type": "Control",
-              "scope": "#/properties/lastName"
-            },
-            {
-              "type": "Control",
-              "scope": "#/properties/likesMovies"
+              "scope": "#/properties/deliveryAddress"
             }
           ]
         }
@@ -62,6 +49,7 @@
     {
       "type": "Group",
       "label": "Section 2: Work Details",
+      "id": "blergenheim2",
       "elements": [
         {
           "type": "Control",
@@ -72,6 +60,7 @@
     {
       "type": "Group",
       "label": "Section 3: Movie Preferences",
+      "id": "blergenheim3",
       "rule": {
         "effect": "HIDE",
         "condition": {

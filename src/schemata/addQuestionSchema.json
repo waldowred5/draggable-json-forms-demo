@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "questionResponseType": {
+      "type": "string",
+      "enum": [
+        "Text",
+        "TextArea",
+        "Number",
+        "Date",
+        "Boolean",
+        "Options"
+      ]
+    },
+    "responseRequired": {
+      "type": "boolean",
+      "default": false
+    },
+    "allowAttachments": {
+      "type": "boolean",
+      "default": false
+    },
+    "allowAdditionalComments": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "question",
+    "responseType"
+  ]
+}
