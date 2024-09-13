@@ -14,9 +14,8 @@ import {
   FormDataContext,
   SectionContext,
   QuestionsContext,
-  CurrentQuestionContext,
+  CurrentQuestionContext
 } from '../../context/Contexts';
-import sectionLayout from '../renderers/SectionLayout';
 
 const renderers = [
   ...materialRenderers,
@@ -39,7 +38,13 @@ export const GigaFormDemo = () => {
   const [sectionData, setSectionData] = useState<object>({ sectionTitle: 'Section' });
   const stringifiedSectionData = useMemo(() => JSON.stringify(sectionData, null, 2), [sectionData]);
 
-  const initialQuestionData = {};
+  const initialQuestionData = {
+    question: '',
+    questionResponseType: '',
+    responseRequired: false,
+    allowAttachments: false,
+    allowAdditionalComments: false
+  };
 
   const [questionsData, setQuestionsData] = useState<[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<object>(initialQuestionData);
@@ -59,48 +64,48 @@ export const GigaFormDemo = () => {
     <SchemaContext.Provider value={[formSchema, setFormSchema]}>
       <SchemaUIContext.Provider value={[formUiSchema, setFormUiSchema]}>
         <FormDataContext.Provider value={[formData, setFormData]}>
-        <SectionContext.Provider value={[sectionData, setSectionData]}>
-          <QuestionsContext.Provider value={[questionsData, setQuestionsData]}>
-            <CurrentQuestionContext.Provider value={[currentQuestion, setCurrentQuestion]}>
-              <div className={'flex w-full gap-x-6'}>
-                <GigaForm
-                  renderers={renderers}
-                  formErrors={formErrors}
-                />
-                <div className={'flex w-0.5 my-4 bg-slate-200'}></div>
-                <div className={'flex flex-col gap-y-4'}>
-                  <div className={'flex gap-y-4 justify-between'}>
-                    <h3 className={'font-bold text-3xl'}>Bound data</h3>
-                    <button
-                      onClick={clearAllData}
-                      className={'bg-red-400 hover:bg-red-500 text-white font-semibold p-2 rounded-max w-48'}
-                    >
-                      CLEAR DATA
-                    </button>
-                  </div>
-                  <div className={'flex rounded-max bg-slate-600'}>
-                    <pre className={'p-4 text-white'}>Form Schema: {stringifiedFormSchema}</pre>
-                  </div>
-                  <div className={'flex rounded-max bg-slate-600'}>
-                    <pre className={'p-4 text-white'}>Form UI Schema: {stringifiedFormUiSchema}</pre>
-                  </div>
-                  <div className={'flex rounded-max bg-slate-600'}>
-                    <pre className={'p-4 text-white'}>Form Data: {stringifiedFormData}</pre>
-                  </div>
-                  <div className={'flex rounded-max bg-slate-600'}>
-                    <pre className={'p-4 text-white'}>Section Data: {stringifiedSectionData}</pre>
-                  </div>
-                  <div className={'flex rounded-max bg-slate-600'}>
-                    <pre className={'p-4 text-white'}>Question Data: {stringifiedQuestionData}</pre>
-                  </div>
-                  <div className={'flex rounded-max bg-slate-600'}>
-                    <pre className={'p-4 text-white'}>Current Question Data: {stringifiedCurrentQuestionData}</pre>
+          <SectionContext.Provider value={[sectionData, setSectionData]}>
+            <QuestionsContext.Provider value={[questionsData, setQuestionsData]}>
+              <CurrentQuestionContext.Provider value={[currentQuestion, setCurrentQuestion]}>
+                <div className={'flex w-full gap-x-6'}>
+                  <GigaForm
+                    renderers={renderers}
+                    formErrors={formErrors}
+                  />
+                  <div className={'flex w-0.5 my-4 bg-slate-200'}></div>
+                  <div className={'flex flex-col gap-y-4'}>
+                    <div className={'flex gap-y-4 justify-between'}>
+                      <h3 className={'font-bold text-3xl'}>Bound data</h3>
+                      <button
+                        onClick={clearAllData}
+                        className={'bg-red-400 hover:bg-red-500 text-white font-semibold p-2 rounded-max w-48'}
+                      >
+                        CLEAR DATA
+                      </button>
+                    </div>
+                    <div className={'flex rounded-max bg-slate-600'}>
+                      <pre className={'p-4 text-white'}>Form Schema: {stringifiedFormSchema}</pre>
+                    </div>
+                    <div className={'flex rounded-max bg-slate-600'}>
+                      <pre className={'p-4 text-white'}>Form UI Schema: {stringifiedFormUiSchema}</pre>
+                    </div>
+                    <div className={'flex rounded-max bg-slate-600'}>
+                      <pre className={'p-4 text-white'}>Form Data: {stringifiedFormData}</pre>
+                    </div>
+                    <div className={'flex rounded-max bg-slate-600'}>
+                      <pre className={'p-4 text-white'}>Section Data: {stringifiedSectionData}</pre>
+                    </div>
+                    <div className={'flex rounded-max bg-slate-600'}>
+                      <pre className={'p-4 text-white'}>Question Data: {stringifiedQuestionData}</pre>
+                    </div>
+                    <div className={'flex rounded-max bg-slate-600'}>
+                      <pre className={'p-4 text-white'}>Current Question Data: {stringifiedCurrentQuestionData}</pre>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </CurrentQuestionContext.Provider>
-          </QuestionsContext.Provider>
-        </SectionContext.Provider>
+              </CurrentQuestionContext.Provider>
+            </QuestionsContext.Provider>
+          </SectionContext.Provider>
         </FormDataContext.Provider>
       </SchemaUIContext.Provider>
     </SchemaContext.Provider>

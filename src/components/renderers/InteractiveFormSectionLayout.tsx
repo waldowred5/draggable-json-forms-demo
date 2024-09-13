@@ -2,8 +2,9 @@ import { withJsonFormsLayoutProps } from '@jsonforms/react';
 import { MaterialLayoutRenderer } from '@jsonforms/material-renderers';
 import { useContext, useState } from 'react';
 import { SchemaContext, SchemaUIContext } from '../../context/Contexts';
-import { findAndActionNestedObjectInSchema } from '../../utils/utils';
+import { findAndAddOrRemoveNestedObjectInSchema } from '../../utils/utils';
 import { AddSection } from '../AddSection';
+import { AddQuestion } from '../AddQuestion';
 
 interface Props {
   uischema: any;
@@ -19,16 +20,20 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
   const [formSchema, setFormSchema] = useContext(SchemaContext);
   const [formUiSchema, setFormUiSchema] = useContext(SchemaUIContext);
   const [isEditingSection, setIsEditingSection] = useState(false);
+  const [isEditingQuestion, setIsEditingQuestion] = useState(false);
 
   const onAddSectionClick = () => {
     setIsEditingSection(true);
-    // setFormUiSchema(findAndActionNestedObjectInSchema(formUiSchema, 'id', uischema.id, 'add', { "foo": "bar" }));
+  };
+
+  const onAddQuestionClick = () => {
+    setIsEditingQuestion(true);
   };
 
   const onRemoveClick = () => {
     console.log('id', uischema.id);
-    setFormUiSchema(findAndActionNestedObjectInSchema(formUiSchema, 'id', uischema.id, 'remove'));
-    // Remove any related properties from any nested scope keys
+    // TODO: Remove any related properties from any nested scope keys
+    setFormUiSchema(findAndAddOrRemoveNestedObjectInSchema(formUiSchema, 'id', uischema.id, 'remove'));
   };
 
   const onEditClick = () => {
@@ -75,21 +80,38 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
                   />
                 }
               </div>
-              <div className={'flex justify-end gap-x-2'}>
-                <button
-                  className={'bg-red-400 hover:bg-red-500 text-red-50 font-semibold py-2 px-4 rounded-max'}
-                  onClick={onRemoveClick}
-                >
-                  REMOVE SECTION
-                </button>
+              <div className={'flex justify-start gap-x-2 w-full flex-grow'}>
+                {!isEditingQuestion
+                  ? <button
+                    className={'bg-slate-200 hover:bg-slate-300 text-slate-900 font-semibold py-2 px-4 rounded-max'}
+                    onClick={onAddQuestionClick}
+                  >
+                    + Add Question
+                  </button>
+                  : <AddQuestion
+                    parentSectionId={uischema.id}
+                    isEditingQuestion={isEditingQuestion}
+                    setIsEditingQuestion={setIsEditingQuestion}
+                  />
+                }
               </div>
+            <div className={'flex justify-end gap-x-2'}>
+              <button
+                className={'bg-red-400 hover:bg-red-500 text-red-50 font-semibold py-2 px-4 rounded-max'}
+                onClick={onRemoveClick}
+              >
+                REMOVE SECTION
+              </button>
             </div>
           </div>
         </div>
+        </div>
         : null}
-    </>
-  );
-};
+</>
+)
+;
+}
+;
 
 // Fast refresh can't handle anonymous components.
 const SectionLayoutWithJsonForms = withJsonFormsLayoutProps(SectionLayout);

@@ -6,7 +6,7 @@ interface SchemaElement {
 
 type Action = 'add' | 'remove';
 
-export const findAndActionNestedObjectInSchema = (
+export const findAndAddOrRemoveNestedObjectInSchema = (
   schema: SchemaElement,
   keyToFind: string,
   valueToFind: any,
@@ -16,6 +16,7 @@ export const findAndActionNestedObjectInSchema = (
   // Create a deep copy of the schema to avoid mutating the original
   const newSchema = JSON.parse(JSON.stringify(schema));
 
+  // TODO: Bump this out of local scope
   // Helper function to recursively modify schema
   const recursiveModify = (element: SchemaElement): SchemaElement | null => {
     // Check if the current element contains the key-value pair you're looking for
@@ -27,6 +28,7 @@ export const findAndActionNestedObjectInSchema = (
         element.elements = element.elements || [];
         element.elements.push(childToAdd);
       }
+
       return element;
     }
 
@@ -39,6 +41,7 @@ export const findAndActionNestedObjectInSchema = (
           modifiedElements.push(modifiedChild); // Keep the child if it wasn’t removed
         }
       }
+
       element.elements = modifiedElements;
     }
 

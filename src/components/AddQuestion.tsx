@@ -4,6 +4,12 @@ import { materialCells, materialRenderers } from '@jsonforms/material-renderers'
 import { JsonForms } from '@jsonforms/react';
 import { v7 as uuidv7 } from 'uuid';
 import addQuestionSchema from '../schemata/addQuestionSchema.json';
+import { useContext, useState } from 'react';
+import { CurrentQuestionContext, QuestionsContext, SchemaContext, SchemaUIContext } from '../context/Contexts';
+import {
+  findAndAddOrRemoveNestedObjectInSchema,
+  findAndAddOrRemoveNestedObjectPropertiesInSchema
+} from '../utils/utils';
 
 const initialData = {};
 
@@ -14,19 +20,24 @@ const renderers = [
 
 export const AddQuestion = (
   {
-    sectionId,
-    formSchema,
-    setFormSchema,
-    formUiSchema,
-    setFormUiSchema,
+    parentSectionId,
+    // formSchema,
+    // setFormSchema,
+    // formUiSchema,
+    // setFormUiSchema,
     isEditingQuestion,
     setIsEditingQuestion,
-    questionData,
-    setQuestionData,
-    currentQuestion,
-    setCurrentQuestion
+    // questionData,
+    // setQuestionData,
+    // currentQuestion,
+    // setCurrentQuestion
   }: any) => {
   const uuid = `question_${uuidv7()}`;
+
+  const [formSchema, setFormSchema] = useContext(SchemaContext);
+  const [formUiSchema, setFormUiSchema] = useContext(SchemaUIContext);
+  const [questionsData, setQuestionsData] = useContext(QuestionsContext);
+  const [currentQuestion, setCurrentQuestion] = useContext(CurrentQuestionContext);
 
   const onCancel = () => {
     setCurrentQuestion({});
@@ -34,64 +45,51 @@ export const AddQuestion = (
   };
 
   const onSave = () => {
-    // setFormSchema(
-    //   {
-    //     ...formSchema,
-    //     properties: {
-    //       ...formSchema.properties,
-    //       [sectionId]: {
-    //         ...formSchema.properties[sectionId],
-    //         properties: {
-    //           ...formSchema.properties[sectionId].properties,
-    //           [uuid]: {
-    //             ...addQuestionSchema
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // );
-    //
-    // const targetSection = formUiSchema.elements.find((element: any) => element.id === sectionId);
-    //
-    // if (!targetSection) {
-    //   setFormUiSchema({
-    //     ...formUiSchema,
-    //     elements: [
-    //       ...formUiSchema.elements,
-    //       {
-    //         type: 'Group',
-    //         label: sectionData.sectionTitle,
-    //         id: uuid,
-    //         elements: []
-    //       }
-    //     ]
-    //   });
-    // }
-    //
-    // setFormUiSchema(
-    //   {
-    //     ...formUiSchema,
-    //     elements: [
-    //       ...formUiSchema.elements,
-    //       {
-    //         type: 'Group',
-    //         label: 'BLERG',
-    //         elements: []
-    //       }
-    //     ]
-    //   }
-    // );
+    const { question, questionResponseType, responseRequired, allowAttachments, allowAdditionalComments } = currentQuestion;
 
-    console.log('currentQuestion', currentQuestion);
+    console.log({ question, questionResponseType, responseRequired, allowAttachments, allowAdditionalComments });
 
-    setQuestionData([...questionData, currentQuestion]);
-    setCurrentQuestion({});
+    const questionSchemaOptions = {
+      ['Text']: { type: 'string' },
+      ['TextArea']: { type: 'string' },
+      ['Number']: { type: 'number' },
+      ['Date']: { type: 'string', format: 'date' },
+      ['Boolean']: { type: 'boolean' },
+      ['Options']: { type: 'string' }, // TODO: Add dynamic enum options
+    }
+
+    const questionSchema = {
+      ...questionSchemaOptions[questionResponseType],
+      label: question,
+      responseRequired,
+      // allowAttachments,
+      // allowAdditionalComments,
+    };
+
+    const questionUiSchema = {
+      type: 'Control',
+      scope: `#/properties/question`
+      // scope: `#/properties/${uuid}`
+    };
+
+    setFormSchema({ ...formSchema, properties: { ...formSchema.properties, [`${question}`]: questionSchema } });
+    setFormUiSchema(findAndAddOrRemoveNestedObjectInSchema(formUiSchema, 'id', parentSectionId, 'add', questionUiSchema));
+
+    console.log({ formSchema, formUiSchema, parentSectionId });
+
+    setQuestionsData([...questionsData, currentQuestion]);
+    setCurrentQuestion({
+      question: '',
+      questionResponseType: '',
+      responseRequired: false,
+      allowAttachments: false,
+      allowAdditionalComments: false
+    });
     setIsEditingQuestion(!isEditingQuestion);
   };
 
   return (
-    <div className={'flex border-2 p-2 rounded-max shadow-lg'}>
+    <div className={'flex flex-grow border-2 p-2 rounded-max shadow-lg'}>
       {
         !isEditingQuestion
           ? <div className={'flex flex-col items-start justify-center h-12 w-full'}>

@@ -1,16 +1,10 @@
 {
-  "type": "Categorization",
-  "label": "Add Section",
+  "type": "Group",
+  "label": "New Section",
   "elements": [
     {
-      "type": "Category",
-      "label": "New Section",
-      "elements": [
-        {
-          "type": "Control",
-          "scope": "#/properties/sectionTitle"
-        }
-      ]
+      "type": "Control",
+      "scope": "#/properties/sectionTitle"
     }
   ]
 }

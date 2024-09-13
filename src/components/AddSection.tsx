@@ -12,7 +12,7 @@ import {
   SchemaUIContext,
   SectionContext
 } from '../context/Contexts';
-import { findAndActionNestedObjectInSchema } from '../utils/utils';
+import { findAndAddOrRemoveNestedObjectInSchema } from '../utils/utils';
 
 const renderers = [
   ...materialRenderers
@@ -38,48 +38,46 @@ export const AddSection = (
   };
 
   const onSave = () => {
-    const questionProperties = questionData.map((question: any) => {
-      return {
-        type: 'Group',
-        elements: {},
-        label: question.question,
-        id: question.questionId,
-        properties: {
-          [question.questionId]: {
-            type: question.questionResponseType
-          }
-        },
-        questionId: question.questionId,
-        type: question.questionResponseType
+    // const questionProperties = questionData.map((question: any) => {
+    //   return {
+    //     type: 'Group',
+    //     elements: {},
+    //     label: question.question,
+    //     id: question.questionId,
+    //     properties: {
+    //       [question.questionId]: {
+    //         type: question.questionResponseType
+    //       }
+    //     },
+    //     questionId: question.questionId,
+    //     type: question.questionResponseType
+    //
+    //   };
+    // });
 
-      };
-    });
+    // setFormSchema(
+    //   {
+    //     ...formSchema,
+    //     properties: {
+    //       ...formSchema.properties
+    //       [uuid]: {
+    //         type: 'object',
+    //         properties: {
+    //           sectionTitle: {
+    //             type: 'string',
+    //           },
+    //         }
+    //       }
+    //     }
+    //   }
+    // );
 
-    setFormSchema(
-      {
-        ...formSchema,
-        properties: {
-          ...formSchema.properties
-          // [uuid]: {
-          //   type: 'object',
-          //   properties: {
-          //     sectionTitle: {
-          //       type: 'string',
-          //     },
-          //
-          //   }
-          // }
-
-        }
-      }
-    );
-
-    const questionElements = questionData.map((question: any) => {
-      return {
-        type: 'Control',
-        scope: `#/properties/${uuid}/properties/${question.questionId}`
-      };
-    });
+    // const questionElements = questionData.map((question: any) => {
+    //   return {
+    //     type: 'Control',
+    //     scope: `#/properties/${uuid}/properties/${question.questionId}`
+    //   };
+    // });
 
     // setFormUiSchema(
     //   {
@@ -96,7 +94,7 @@ export const AddSection = (
     //   }
     // )
 
-    setFormUiSchema(findAndActionNestedObjectInSchema(
+    setFormUiSchema(findAndAddOrRemoveNestedObjectInSchema(
       formUiSchema,
       'id',
       parentSectionId,
@@ -105,7 +103,7 @@ export const AddSection = (
         type: 'Group',
         label: sectionData.sectionTitle,
         id: uuid,
-        elements: questionElements
+        // elements: questionElements
       }
     ));
 
@@ -126,19 +124,6 @@ export const AddSection = (
           cells={materialCells}
           onChange={({ data }) => setSectionData(data)}
         />
-        {/*<AddQuestion*/}
-        {/*  sectionId={uuid}*/}
-        {/*  formSchema={formSchema}*/}
-        {/*  setFormSchema={setFormSchema}*/}
-        {/*  formUiSchema={formUiSchema}*/}
-        {/*  setFormUiSchema={setFormUiSchema}*/}
-        {/*  isEditingQuestion={isEditingQuestion}*/}
-        {/*  setIsEditingQuestion={setIsEditingQuestion}*/}
-        {/*  questionData={questionData}*/}
-        {/*  setQuestionData={setQuestionData}*/}
-        {/*  currentQuestion={currentQuestion}*/}
-        {/*  setCurrentQuestion={setCurrentQuestion}*/}
-        {/*/>*/}
         <div className={'flex justify-start gap-x-4'}>
           <button
             className={'bg-cyan-500 hover:bg-cyan-600 text-white font-semibold p-2 rounded-max w-32'}

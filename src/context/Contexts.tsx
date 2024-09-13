@@ -21,9 +21,17 @@ export const SectionContext = createContext<
 >([{}, () => {}]);
 
 export const QuestionsContext = createContext<
-  [[], Dispatch<SetStateAction<[]>>]
+  [any[], Dispatch<SetStateAction<any[]>>]
 >([[], () => []]);
 
+interface Question {
+  question: string;
+  questionResponseType: string;
+  responseRequired: boolean;
+  allowAttachments: boolean;
+  allowAdditionalComments: boolean;
+}
+
 export const CurrentQuestionContext = createContext<
-  [object, Dispatch<SetStateAction<object>>]
+  [Question, Dispatch<SetStateAction<Question>>]
 >([{}, () => {}]);

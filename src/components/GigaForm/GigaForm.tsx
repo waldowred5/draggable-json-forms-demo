@@ -23,7 +23,7 @@ export const GigaForm = (
   const [questionData, setQuestionData] = useContext(QuestionsContext);
   const [currentQuestion, setCurrentQuestion] = useContext(CurrentQuestionContext);
 
-  const [isEditingForm, setIsEditingForm] = useState(false);
+  const [isEditingForm, setIsEditingForm] = useState(true);
   const [isEditingQuestion, setIsEditingQuestion] = useState(false);
   const [isEditingSection, setIsEditingSection] = useState(false);
 
