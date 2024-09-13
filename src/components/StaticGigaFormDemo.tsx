@@ -1,7 +1,9 @@
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
 import { JsonForms } from '@jsonforms/react';
-import initialSchema from '../schemata/basicFormSchema.json';
-import initialUiSchema from '../schemata/basicFormUiSchema.json';
+import initialSchema from '../schemata/staticGigaFormSchema.json';
+// import initialSchema from '../schemata/basicFormSchema.json';
+import initialUiSchema from '../schemata/staticGigaFormUiSchema.json';
+// import initialUiSchema from '../schemata/basicFormUiSchema.json';
 import ratingControlTester from '../testers/ratingControlTester';
 import RatingControl from './RatingControl';
 import { sectionLayoutTester } from '../testers/sectionLayoutTester';
@@ -19,12 +21,10 @@ const renderers = [
   { tester: sectionLayoutTester, renderer: SectionLayout }
 ];
 
-export const BasicFormDemo = () => {
+export const StaticGigaFormDemo = () => {
   const [data, setData] = useState<object>(initialData);
   const [errors] = useState([]);
   const stringifiedData = useMemo(() => JSON.stringify(data, null, 2), [data]);
-  const stringifiedFormSchema = useMemo(() => JSON.stringify(initialSchema, null, 2), []);
-  const stringifiedFormUiSchema = useMemo(() => JSON.stringify(initialUiSchema, null, 2), []);
 
   return (
     <div className={'flex w-full gap-x-6'}>
@@ -50,12 +50,6 @@ export const BasicFormDemo = () => {
         </div>
         <div className={'flex rounded-max bg-slate-600'}>
           <pre className={'p-4 text-white'}>{stringifiedData}</pre>
-        </div>
-        <div className={'flex rounded-max bg-slate-600'}>
-          <pre className={'p-4 text-white'}>Form Schema: {stringifiedFormSchema}</pre>
-        </div>
-        <div className={'flex rounded-max bg-slate-600'}>
-          <pre className={'p-4 text-white'}>Form UI Schema: {stringifiedFormUiSchema}</pre>
         </div>
       </div>
     </div>

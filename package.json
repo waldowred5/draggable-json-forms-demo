@@ -43,6 +43,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "start": "vite preview --port 3000",
     "test": "vitest run --coverage",
+    "tailwind:watch": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --config video=false",
     "cypress:ci": "BROWSER=none start-server-and-test start http://localhost:3000 cypress:run"

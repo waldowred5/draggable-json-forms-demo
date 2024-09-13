@@ -1,6 +1,5 @@
 import { withJsonFormsLayoutProps } from '@jsonforms/react';
 import { MaterialLayoutRenderer } from '@jsonforms/material-renderers';
-import Typography from '@mui/material/Typography';
 
 const SectionLayout = (props) => {
   const { uischema, schema, path, visible, renderers } = props;
@@ -36,16 +35,16 @@ const SectionLayout = (props) => {
               borderRadius: '0.25em',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
+              justifyContent: 'start',
               alignItems: 'center'
             }}>
-            {/*<div>{uischema.label}</div>*/}
+            <div className={'w-full'}>{uischema.label}</div>
             <MaterialLayoutRenderer {...layoutProps} />
             <div style={{
               display: 'flex',
               justifyContent: 'flex-end',
               width: '100%',
-            }}><button onClick={onRemoveClick}>Remove Section</button></div>
+            }}><button onClick={onRemoveClick}>REMOVE SECTION</button></div>
           </div>
         </div>
         : null}

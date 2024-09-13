@@ -13,7 +13,10 @@ module.exports = {
     extend: {
       boxShadow: {
         '3xl': '0 0 12px 6px rgba(0, 0, 0, 0.7)',
-      }
+      },
+      borderRadius: {
+        'max': '20px',
+      },
     },
   },
   plugins: [],
