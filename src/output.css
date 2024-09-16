@@ -678,6 +678,10 @@ video {
   row-gap: 1rem;
 }
 
+.text-wrap {
+  text-wrap: wrap;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }

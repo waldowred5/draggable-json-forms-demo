@@ -72,34 +72,36 @@ export const GigaFormDemo = () => {
                     renderers={renderers}
                     formErrors={formErrors}
                   />
-                  <div className={'flex w-0.5 my-4 bg-slate-200'}></div>
-                  <div className={'flex flex-col gap-y-4'}>
-                    <div className={'flex gap-y-4 justify-between'}>
-                      <h3 className={'font-bold text-3xl'}>Bound data</h3>
-                      <button
-                        onClick={clearAllData}
-                        className={'bg-red-400 hover:bg-red-500 text-white font-semibold p-2 rounded-max w-48'}
-                      >
-                        CLEAR DATA
-                      </button>
-                    </div>
-                    <div className={'flex rounded-max bg-slate-600'}>
-                      <pre className={'p-4 text-white'}>Form Schema: {stringifiedFormSchema}</pre>
-                    </div>
-                    <div className={'flex rounded-max bg-slate-600'}>
-                      <pre className={'p-4 text-white'}>Form UI Schema: {stringifiedFormUiSchema}</pre>
-                    </div>
-                    <div className={'flex rounded-max bg-slate-600'}>
-                      <pre className={'p-4 text-white'}>Form Data: {stringifiedFormData}</pre>
-                    </div>
-                    <div className={'flex rounded-max bg-slate-600'}>
-                      <pre className={'p-4 text-white'}>Section Data: {stringifiedSectionData}</pre>
-                    </div>
-                    <div className={'flex rounded-max bg-slate-600'}>
-                      <pre className={'p-4 text-white'}>Question Data: {stringifiedQuestionData}</pre>
-                    </div>
-                    <div className={'flex rounded-max bg-slate-600'}>
-                      <pre className={'p-4 text-white'}>Current Question Data: {stringifiedCurrentQuestionData}</pre>
+                  <div className={'w-full'}>
+                    <div className={'flex w-0.5 my-4 bg-slate-200'}></div>
+                    <div className={'flex flex-col gap-y-4'}>
+                      <div className={'flex gap-y-4 justify-between'}>
+                        <h3 className={'font-bold text-3xl'}>Bound data</h3>
+                        <button
+                          onClick={clearAllData}
+                          className={'bg-red-400 hover:bg-red-500 text-white font-semibold p-2 rounded-max w-48'}
+                        >
+                          CLEAR DATA
+                        </button>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Form Schema: {stringifiedFormSchema}</pre>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white text-wrap'}>Form UI Schema: {stringifiedFormUiSchema}</pre>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Form Data: {stringifiedFormData}</pre>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Section Data: {stringifiedSectionData}</pre>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Question Data: {stringifiedQuestionData}</pre>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Current Question Data: {stringifiedCurrentQuestionData}</pre>
+                      </div>
                     </div>
                   </div>
                 </div>

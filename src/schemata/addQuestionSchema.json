@@ -27,6 +27,26 @@
     "allowAdditionalComments": {
       "type": "boolean",
       "default": false
+    },
+    "numberOptions": {
+      "type": "string",
+      "enum": [
+        "Standard",
+        "Slider"
+      ],
+      "default": "Standard"
+    },
+    "numberMinimum": {
+      "type": "number"
+    },
+    "numberMaximum": {
+      "type": "number"
+    },
+    "numberStep": {
+      "type": "number"
+    },
+    "numberDefaultValue": {
+      "type": "number"
     }
   },
   "required": [

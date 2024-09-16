@@ -13,6 +13,45 @@
       "scope": "#/properties/questionResponseType"
     },
     {
+      "type": "VerticalLayout",
+      "rule": {
+        "effect": "SHOW",
+        "condition": {
+          "scope": "#/properties/questionResponseType",
+          "schema": {
+            "const": "Number"
+          }
+        }
+      },
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/numberOptions"
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/numberMinimum"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/numberMaximum"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/numberStep"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/numberDefaultValue"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "type": "Control",
       "scope": "#/properties/responseRequired",
       "options": {

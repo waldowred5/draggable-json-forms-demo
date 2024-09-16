@@ -86,6 +86,7 @@ export const GigaForm = (
             cells={materialCells}
             onChange={({ data }) => setFormData(data)}
             readonly={!isEditingForm}
+            // readonly={true}
           />
           {isEditingForm && !isEditingSection
             ? <div className={'border-2 border-dashed border-slate-500 rounded-md'}>

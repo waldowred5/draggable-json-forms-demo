@@ -66,21 +66,6 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
             />
             <div className={'flex flex-col gap-y-2 w-full'}>
               <div className={'flex justify-start gap-x-2 w-full flex-grow'}>
-                {!isEditingSection
-                  ? <button
-                    className={'bg-slate-200 hover:bg-slate-300 text-slate-900 font-semibold py-2 px-4 rounded-max'}
-                    onClick={onAddSectionClick}
-                  >
-                    + Add Sub Section
-                  </button>
-                  : <AddSection
-                    isEditingSection={isEditingSection}
-                    setIsEditingSection={setIsEditingSection}
-                    parentSectionId={uischema.id}
-                  />
-                }
-              </div>
-              <div className={'flex justify-start gap-x-2 w-full flex-grow'}>
                 {!isEditingQuestion
                   ? <button
                     className={'bg-slate-200 hover:bg-slate-300 text-slate-900 font-semibold py-2 px-4 rounded-max'}
@@ -95,22 +80,37 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
                   />
                 }
               </div>
-            <div className={'flex justify-end gap-x-2'}>
-              <button
-                className={'bg-red-400 hover:bg-red-500 text-red-50 font-semibold py-2 px-4 rounded-max'}
-                onClick={onRemoveClick}
-              >
-                REMOVE SECTION
-              </button>
+              <div className={'flex justify-start gap-x-2 w-full flex-grow'}>
+                {!isEditingSection
+                  ? <button
+                    className={'bg-slate-200 hover:bg-slate-300 text-slate-900 font-semibold py-2 px-4 rounded-max'}
+                    onClick={onAddSectionClick}
+                  >
+                    + Add Sub Section
+                  </button>
+                  : <AddSection
+                    isEditingSection={isEditingSection}
+                    setIsEditingSection={setIsEditingSection}
+                    parentSectionId={uischema.id}
+                  />
+                }
+              </div>
+              <div className={'flex justify-end gap-x-2'}>
+                <button
+                  className={'bg-red-400 hover:bg-red-500 text-red-50 font-semibold py-2 px-4 rounded-max'}
+                  onClick={onRemoveClick}
+                >
+                  REMOVE SECTION
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        </div>
         : null}
-</>
-)
-;
-}
+    </>
+  )
+    ;
+  }
 ;
 
 // Fast refresh can't handle anonymous components.

@@ -30,6 +30,11 @@ interface Question {
   responseRequired: boolean;
   allowAttachments: boolean;
   allowAdditionalComments: boolean;
+  numberOptions: string;
+  sliderMinimum: number;
+  sliderMaximum: number;
+  sliderStep: number;
+  sliderDefaultValue: number;
 }
 
 export const CurrentQuestionContext = createContext<

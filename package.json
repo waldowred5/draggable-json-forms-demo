@@ -10,6 +10,8 @@
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "^5.15.19",
     "@mui/x-date-pickers": "^6.x",
+    "@types/lodash": "^4.17.7",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "uuid": "^10.0.0"
