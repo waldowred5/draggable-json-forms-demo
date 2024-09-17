@@ -12,7 +12,7 @@ import {
   SchemaUIContext,
   SectionContext
 } from '../context/Contexts';
-import { findAndAddOrRemoveNestedObjectInSchema } from '../utils/utils';
+import { findAndAddOrRemoveNestedObjectInSchema } from '../utils/findAndAddOrRemoveNestedObjectInSchema';
 
 const renderers = [
   ...materialRenderers

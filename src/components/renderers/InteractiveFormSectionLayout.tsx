@@ -2,9 +2,9 @@ import { withJsonFormsLayoutProps } from '@jsonforms/react';
 import { MaterialLayoutRenderer } from '@jsonforms/material-renderers';
 import { useContext, useState } from 'react';
 import { SchemaContext, SchemaUIContext } from '../../context/Contexts';
-import { findAndAddOrRemoveNestedObjectInSchema } from '../../utils/utils';
 import { AddSection } from '../AddSection';
 import { AddQuestion } from '../AddQuestion';
+import { findAndAddOrRemoveNestedObjectInSchema } from '../../utils/findAndAddOrRemoveNestedObjectInSchema';
 
 interface Props {
   uischema: any;
@@ -30,9 +30,40 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
     setIsEditingQuestion(true);
   };
 
-  const onRemoveClick = () => {
+  const onRemoveSectionClick = () => {
     console.log('id', uischema.id);
     // TODO: Remove any related properties from any nested scope keys
+    const questionsToRemove = Object.entries(formSchema.properties).reduce((acc, property) => {
+      if (property[1].parentId === uischema.id) {
+        return [
+          ...acc,
+          property[0]
+        ];
+      }
+
+      return acc;
+    }, []);
+
+    const filteredSchemaProperties = Object.entries(formSchema.properties).reduce((acc, property) => {
+      if (questionsToRemove.includes(property[0])) {
+        return acc;
+      }
+
+      return {
+        ...acc,
+        [property[0]]: property[1]
+      };
+    }, {});
+
+    const filteredSchemaPropertiesRequiredList = formSchema.required.filter((requiredProperty) => {
+      return !questionsToRemove.includes(requiredProperty);
+    });
+
+    setFormSchema({
+      ...formSchema,
+      properties: filteredSchemaProperties,
+      required: filteredSchemaPropertiesRequiredList
+    });
     setFormUiSchema(findAndAddOrRemoveNestedObjectInSchema(formUiSchema, 'id', uischema.id, 'remove'));
   };
 
@@ -98,7 +129,7 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
               <div className={'flex justify-end gap-x-2'}>
                 <button
                   className={'bg-red-400 hover:bg-red-500 text-red-50 font-semibold py-2 px-4 rounded-max'}
-                  onClick={onRemoveClick}
+                  onClick={onRemoveSectionClick}
                 >
                   REMOVE SECTION
                 </button>

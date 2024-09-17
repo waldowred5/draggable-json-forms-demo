@@ -16,13 +16,16 @@ import {
   QuestionsContext,
   CurrentQuestionContext
 } from '../../context/Contexts';
+import { removeableControlTester } from '../../testers/removeableControlTester';
+import RemovableControl from '../RemovableControl';
 
 const renderers = [
   ...materialRenderers,
   // register custom renderers
   { tester: ratingControlTester, renderer: RatingControl },
   // { tester: sectionLayoutTester, renderer: sectionLayout }
-  { tester: sectionLayoutTester, renderer: InteractiveFormSectionLayout }
+  { tester: sectionLayoutTester, renderer: InteractiveFormSectionLayout },
+  { tester: removeableControlTester, renderer: RemovableControl }
 ];
 
 export const GigaFormDemo = () => {

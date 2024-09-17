@@ -3,14 +3,9 @@ import initialQuestionUiSchema from '../schemata/addQuestionUiSchema.json';
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
 import { JsonForms } from '@jsonforms/react';
 import { v7 as uuidv7 } from 'uuid';
-import addQuestionSchema from '../schemata/addQuestionSchema.json';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { CurrentQuestionContext, QuestionsContext, SchemaContext, SchemaUIContext } from '../context/Contexts';
-import {
-  findAndAddOrRemoveNestedObjectInSchema,
-  findAndAddOrRemoveNestedObjectPropertiesInSchema
-} from '../utils/utils';
-import _ from 'lodash';
+import { findAndAddOrRemoveNestedObjectInSchema } from '../utils/findAndAddOrRemoveNestedObjectInSchema';
 
 const initialData = {};
 
@@ -46,70 +41,93 @@ export const AddQuestion = (
     };
 
     const onSave = () => {
-        const {
-          question,
-          questionResponseType,
-          responseRequired,
-          allowAttachments,
-          allowAdditionalComments,
-          numberOptions,
-          numberMinimum,
-          numberMaximum,
-          numberStep,
-          numberDefaultValue,
-        } = currentQuestion;
+      const {
+        question,
+        questionResponseType,
+        responseRequired,
+        allowAttachments,
+        allowAdditionalComments,
+        numberOptions,
+        numberMinimum,
+        numberMaximum,
+        numberStep,
+        numberDefaultValue
+      } = currentQuestion;
 
-        const numberSchemaOptions = {
-          type: 'number',
-          minimum: numberMinimum,
-          maximum: numberMaximum,
-          default: numberDefaultValue,
-          step: numberStep,
-        }
+      const numberSchemaOptions = {
+        type: 'number',
+        minimum: numberMinimum,
+        maximum: numberMaximum,
+        default: numberDefaultValue,
+        step: numberStep,
+        renderer: numberOptions === 'Slider' ? 'MaterialSliderControl' : 'MaterialNumberControl',
+      };
 
-        const questionSchemaOptions = {
-          ['Text']: { type: 'string' },
-          ['TextArea']: { type: 'string' },
-          ['Number']: numberSchemaOptions,
-          ['Date']: { type: 'string', format: 'date' },
-          ['Boolean']: { type: 'boolean' },
-          ['Options']: { type: 'string' } // TODO: Add dynamic enum options
-        };
+      const questionSchemaOptions = {
+        ['Text']: { type: 'string', renderer: 'MaterialTextControl' },
+        ['TextArea']: { type: 'string', renderer: 'MaterialTextControl' },
+        ['Number']: numberSchemaOptions,
+        ['Date']: { type: 'string', renderer: 'MaterialDateControl', format: 'date' },
+        ['Boolean']: { type: 'boolean', renderer: 'MaterialBooleanControl' },
+        // ['Options']: { type: 'string', renderer: 'MaterialArrayLayout' } // TODO: Add dynamic enum options
+      };
 
-        const questionSchema = {
-          ...questionSchemaOptions[questionResponseType],
-          responseRequired,
-          allowAttachments,
-          allowAdditionalComments,
-        };
+      const questionSchema = {
+        parentId: parentSectionId,
+        ...questionSchemaOptions[questionResponseType],
+        allowAttachments,
+        allowAdditionalComments
+      };
 
-        const questionUiSchema = {
-          type: 'Control',
-          scope: `#/properties/${uuid}`,
-          label: question,
-          options: {
-            slider: numberOptions === 'Slider',
-          },
-        };
+      const requiredProperties = [];
 
-        setFormSchema({ ...formSchema, properties: { ...formSchema.properties, [`${uuid}`]: questionSchema } });
-        setFormUiSchema(findAndAddOrRemoveNestedObjectInSchema(formUiSchema, 'id', parentSectionId, 'add', questionUiSchema));
-
-        setQuestionsData([...questionsData, currentQuestion]);
-        setCurrentQuestion({
-          question: '',
-          questionResponseType: '',
-          responseRequired: false,
-          allowAttachments: false,
-          allowAdditionalComments: false,
-          sliderMinimum: 0,
-          sliderMaximum: 0,
-          sliderStep: 0,
-          sliderDefaultValue: 0,
-        });
-        setIsEditingQuestion(!isEditingQuestion);
+      if (responseRequired) {
+        requiredProperties.push(uuid);
       }
-    ;
+
+      const questionUiSchema = {
+        type: 'Control',
+        scope: `#/properties/${uuid}`,
+        id: uuid,
+        label: question,
+        options: {
+          slider: numberOptions === 'Slider'
+        }
+      };
+
+      setFormSchema(
+        {
+          ...formSchema,
+          properties: {
+            ...formSchema.properties,
+            [`${uuid}`]: questionSchema
+          },
+          required: [...formSchema.required, ...requiredProperties]
+        }
+      );
+
+      setFormUiSchema(findAndAddOrRemoveNestedObjectInSchema(
+        formUiSchema,
+        'id',
+        parentSectionId,
+        'add',
+        questionUiSchema
+      ));
+
+      setQuestionsData([...questionsData, currentQuestion]);
+      setCurrentQuestion({
+        question: '',
+        questionResponseType: '',
+        responseRequired: false,
+        allowAttachments: false,
+        allowAdditionalComments: false,
+        sliderMinimum: 0,
+        sliderMaximum: 0,
+        sliderStep: 0,
+        sliderDefaultValue: 0
+      });
+      setIsEditingQuestion(!isEditingQuestion);
+    };
 
     return (
       <div className={'flex flex-grow border-2 p-2 rounded-max shadow-lg'}>

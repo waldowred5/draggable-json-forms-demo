@@ -4,9 +4,15 @@ import {
   SetStateAction,
 } from 'react';
 
+interface Schema {
+  type: string;
+  properties: object;
+  required: string[];
+}
+
 export const SchemaContext = createContext<
-  [object, Dispatch<SetStateAction<object>>]
->([{}, () => {}]);
+  [Schema, Dispatch<SetStateAction<Schema>>]
+>([{ type: 'object', properties: {}, required: [] }, () => {}]);
 
 export const SchemaUIContext = createContext<
   [object, Dispatch<SetStateAction<object>>]
