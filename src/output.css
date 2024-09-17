@@ -553,6 +553,10 @@ video {
   margin: 1.5rem;
 }
 
+.m-0 {
+  margin: 0px;
+}
+
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -664,6 +668,14 @@ video {
   width: 4rem;
 }
 
+.w-7 {
+  width: 1.75rem;
+}
+
+.w-14 {
+  width: 3.5rem;
+}
+
 .shrink {
   flex-shrink: 1;
 }
@@ -702,6 +714,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
 }
 
 .gap-x-2 {
@@ -814,6 +830,10 @@ video {
   padding: 1rem;
 }
 
+.p-0 {
+  padding: 0px;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -839,6 +859,10 @@ video {
 
 .text-center {
   text-align: center;
+}
+
+.text-end {
+  text-align: end;
 }
 
 .text-2xl {
@@ -908,6 +932,10 @@ video {
 
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.\[writing-mode\:vertical-lr\] {
+  writing-mode: vertical-lr;
 }
 
 * {

@@ -4,7 +4,17 @@
     "formTitle": {
       "type": "string",
       "minLength": 1
+    },
+    "question_0191fff8-01ec-7558-ae15-f7894fed24e1": {
+      "parentId": "section_0191eac4-e22e-711c-90f9-4e6550984c19",
+      "type": "string",
+      "renderer": "MaterialTextControl",
+      "allowAttachments": false,
+      "allowAdditionalComments": false
     }
   },
-  "required": ["formTitle"]
+  "required": [
+    "formTitle",
+    "question_0191fff8-01ec-7558-ae15-f7894fed24e1"
+  ]
 }

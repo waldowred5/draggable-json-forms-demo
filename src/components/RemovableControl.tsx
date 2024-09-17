@@ -5,6 +5,7 @@ import { JSX, useContext } from 'react';
 import { SchemaContext, SchemaUIContext } from '../context/Contexts';
 import { findAndAddOrRemoveNestedObjectInSchema } from '../utils/findAndAddOrRemoveNestedObjectInSchema';
 import { removeQuestions } from '../utils/removeQuestions';
+import { motion } from 'framer-motion';
 
 // interface RatingControlProps {
 //   data: number;
@@ -35,21 +36,31 @@ const RemoveableControl = (props: ControlProps & { schema: { renderer?: string }
         formSchema,
         setFormSchema,
         formUiSchema,
-        setFormUiSchema,
+        setFormUiSchema
       }
     );
   };
 
   return (
-    <div className={'flex items-start gap-x-4'}>
-      <Component {...props} />
-      <button
-        className={'bg-red-400 hover:bg-red-500 text-white font-bold text-2xl rounded mt-3 h-14 w-16'}
-        onClick={onClick}
-      >
-        X
-      </button>
-    </div>
+    <motion.div>
+      <div className={'flex items-start gap-x-4'}>
+        <div
+          onPointerDown={(e) => controls.start(e)}>
+          <button
+            className={'bg-red-400 hover:bg-red-500 flex flex-col text-white justify-center items-center font-bold text-md rounded mt-3 h-14 w-7'}
+          >
+            <span>🫳🏼</span>
+          </button>
+        </div>
+        <Component {...props} />
+        <button
+          className={'bg-red-400 hover:bg-red-500 text-white font-bold text-2xl rounded mt-3 h-14 w-16'}
+          onClick={onClick}
+        >
+          X
+        </button>
+      </div>
+    </motion.div>
   );
 };
 
