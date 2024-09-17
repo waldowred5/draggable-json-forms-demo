@@ -1,11 +1,15 @@
-import { useContext } from 'react';
-import { SchemaContext, SchemaUIContext } from '../context/Contexts';
 import { findAndAddOrRemoveNestedObjectInSchema } from './findAndAddOrRemoveNestedObjectInSchema';
 
-export const useRemoveQuestion = ({ questionsToRemove, uiSchemaElementToRemove }) => {
-  const [formSchema, setFormSchema] = useContext(SchemaContext);
-  const [formUiSchema, setFormUiSchema] = useContext(SchemaUIContext);
-
+export const removeQuestions = (
+  {
+    questionsToRemove,
+    uiSchemaElementToRemove,
+    formSchema,
+    setFormSchema,
+    formUiSchema,
+    setFormUiSchema,
+  }
+) => {
   const filteredSchemaProperties = Object.entries(formSchema.properties).reduce((acc, property) => {
     if (questionsToRemove.includes(property[0])) { // array of questions to check, EX: property[0] === props.path
       return acc;
@@ -28,4 +32,4 @@ export const useRemoveQuestion = ({ questionsToRemove, uiSchemaElementToRemove }
   });
 
   setFormUiSchema(findAndAddOrRemoveNestedObjectInSchema(formUiSchema, 'id', uiSchemaElementToRemove, 'remove')); // id to remove, EX: props.path
-}
+};

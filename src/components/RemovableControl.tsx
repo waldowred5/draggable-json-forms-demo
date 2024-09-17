@@ -4,6 +4,7 @@ import { ControlProps } from '@jsonforms/core';
 import { JSX, useContext } from 'react';
 import { SchemaContext, SchemaUIContext } from '../context/Contexts';
 import { findAndAddOrRemoveNestedObjectInSchema } from '../utils/findAndAddOrRemoveNestedObjectInSchema';
+import { removeQuestions } from '../utils/removeQuestions';
 
 // interface RatingControlProps {
 //   data: number;
@@ -23,34 +24,20 @@ const RemoveableControl = (props: ControlProps & { schema: { renderer?: string }
   const [formSchema, setFormSchema] = useContext(SchemaContext);
   const [formUiSchema, setFormUiSchema] = useContext(SchemaUIContext);
 
-  console.log('props', props, 'Unwrapped', Unwrapped);
-
   const renderer = `${props?.schema?.renderer}`;
   const Component: JSX.Element = RENDERER[renderer] ?? Unwrapped.MaterialTextControl;
 
   const onClick = () => {
-    const filteredSchemaProperties = Object.entries(formSchema.properties).reduce((acc, property) => {
-      if (property[0] === props.path) {
-        return acc;
+    removeQuestions(
+      {
+        questionsToRemove: [props.path],
+        uiSchemaElementToRemove: props.path,
+        formSchema,
+        setFormSchema,
+        formUiSchema,
+        setFormUiSchema,
       }
-
-      return {
-        ...acc,
-        [property[0]]: property[1]
-      };
-    }, {});
-
-    const filteredSchemaPropertiesRequiredList = formSchema.required.filter((requiredProperty) => {
-      return requiredProperty !== props.path;
-    });
-
-    setFormSchema({
-      ...formSchema,
-      properties: filteredSchemaProperties,
-      required: filteredSchemaPropertiesRequiredList
-    });
-
-    setFormUiSchema(findAndAddOrRemoveNestedObjectInSchema(formUiSchema, 'id', props.path, 'remove'));
+    );
   };
 
   return (
