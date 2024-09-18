@@ -28,7 +28,7 @@ const RemoveableControl = (props: ControlProps & { schema: { renderer?: string }
 
   const ref = useRef<HTMLDivElement>(null);
 
-  console.log('props', props);
+  // console.log('props', props);
 
   const renderer = `${props?.schema?.renderer}`;
   const Component: JSX.Element = RENDERER[renderer] ?? Unwrapped.MaterialTextControl;

@@ -25,7 +25,7 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
   const [isEditingQuestion, setIsEditingQuestion] = useState(false);
   const [elements, setElements] = useState(uischema.elements);
 
-  console.log('uischema', uischema);
+  // console.log('uischema', uischema);
 
   const onAddSectionClick = () => {
     setIsEditingSection(true);

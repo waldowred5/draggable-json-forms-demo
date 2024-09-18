@@ -4,6 +4,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { GigaFormDemo } from './GigaForm/GigaFormDemo';
 import { StaticGigaFormDemo } from './StaticGigaFormDemo';
+import { ReorderableDemo } from './Reorderable/ReordereableDemo';
 
 export const JsonFormsDemo: FC = () => {
   return (
@@ -14,6 +15,15 @@ export const JsonFormsDemo: FC = () => {
         </AccordionSummary>
         <AccordionDetails>
           <GigaFormDemo />
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <h1 className={'font-bold text-4xl'}>Reorderable Demo</h1>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ReorderableDemo />
         </AccordionDetails>
       </Accordion>
 
