@@ -48,7 +48,7 @@ export const DraggableItem = (
           onDrop?.();
         }}
       >
-        <div className={`flex-1`}>{children}</div>
+        <div className={`flex-1`}>{value?.label ?? 'Not Found'}</div>
       </Reorder.Item>
     </motion.div>
   );

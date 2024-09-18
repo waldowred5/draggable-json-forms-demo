@@ -20,7 +20,7 @@ export const JsonFormsDemo: FC = () => {
 
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <h1 className={'font-bold text-4xl'}>Reorderable Demo</h1>
+          <h1 className={'font-bold text-4xl'}>Recursively Draggable Reorderable Demo</h1>
         </AccordionSummary>
         <AccordionDetails>
           <ReorderableDemo />

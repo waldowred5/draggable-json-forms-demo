@@ -14,8 +14,8 @@ export const DraggableGroup = (
   {
     value,
     draggable,
-    onDrop,
-    children,
+    onDrop
+    // children,
   }: PropsWithChildren<Props>
 ) => {
   const [groups, setGroups] = useState(value.elements);
@@ -32,7 +32,7 @@ export const DraggableGroup = (
       <Reorder.Item
         drag={draggable}
         transition={{ duration: 0 }}
-        className={`relative bg-white rounded-md flex items-center transition-shadow ${
+        className={`relative bg-white rounded-md flex flex-col items-start transition-shadow ${
           dragging && draggable
             ? 'z-50 border-2 border-teal cursor-grabbing !shadow-xl'
             : 'z-0'
@@ -48,17 +48,22 @@ export const DraggableGroup = (
           onDrop?.();
         }}
       >
+        <h1 className={`flex-1 mb-4 font-bold text-2xl`}>{value.label}</h1>
         <Reorder.Group
           axis="y"
           values={groups}
           onReorder={setGroups}
           className={'flex flex-col w-full'}
         >
-          {groups.map((item) => (
-            <DraggableItem value={item} key={item} draggable={true}>
-              {item}
-            </DraggableItem>
-          ))}
+          {groups.map((item) => {
+            return (
+              item?.elements?.length > 0 ? (
+                <DraggableGroup value={item} key={item.key} draggable={true}/>
+              ) : (
+              <DraggableItem value={item} key={item.key} draggable={true}/>
+              )
+            );
+          })}
         </Reorder.Group>
       </Reorder.Item>
     </motion.div>
