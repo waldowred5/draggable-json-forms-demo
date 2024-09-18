@@ -1,7 +1,7 @@
 import { materialCells } from '@jsonforms/material-renderers';
 import { JsonForms } from '@jsonforms/react';
 import { AddSection } from '../AddSection';
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useMemo, useRef, useState } from 'react';
 import {
   SchemaContext,
   SchemaUIContext,
@@ -27,6 +27,8 @@ export const GigaForm = (
   const [isEditingQuestion, setIsEditingQuestion] = useState(false);
   const [isEditingSection, setIsEditingSection] = useState(false);
 
+  const formRef = useRef<HTMLDivElement>(null);
+
   const isFormEmpty = useMemo(() => {
     return Object.keys(formData).length === 0;
   }, [formData]);
@@ -42,7 +44,7 @@ export const GigaForm = (
   };
 
   return (
-    <div className={'flex w-full'}>
+    <div className={'flex w-full'} ref={formRef} >
       {!isEditingForm && isFormEmpty
         ? <div>
           <button
@@ -78,6 +80,7 @@ export const GigaForm = (
             </div>
           }
           <JsonForms
+            formRef={formRef}
             data={formData}
             schema={formSchema}
             uischema={formUiSchema}
