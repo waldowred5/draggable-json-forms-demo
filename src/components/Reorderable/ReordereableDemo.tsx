@@ -15,9 +15,9 @@ const initialGroupsNested = [
     key: 'key1',
     label: 'Group 2',
     elements: [
-      { key: 'key1.0', label: 'Item 2.0', elements: [] },
-      { key: 'key1.1', label: 'Item 2.1', elements: [] },
-      { key: 'key1.2', label: 'Item 2.2', elements: [] }
+      { key: 'key1.0', label: 'Item 2.1', elements: [] },
+      { key: 'key1.1', label: 'Item 2.2', elements: [] },
+      { key: 'key1.2', label: 'Item 2.3', elements: [] }
     ]
   },
   {

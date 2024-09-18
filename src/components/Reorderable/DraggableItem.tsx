@@ -1,4 +1,4 @@
-import { Reorder } from 'framer-motion';
+import { Reorder, useDragControls } from 'framer-motion';
 import { motion } from 'framer-motion';
 import React, { PropsWithChildren, useState } from 'react';
 
@@ -15,41 +15,54 @@ export const DraggableItem = (
     // key,
     draggable,
     onDrop,
-    children,
+    children
   }: PropsWithChildren<Props>
 ) => {
   const [dragging, setDragging] = useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
+  const dragControls = useDragControls();
 
   return (
-    <motion.div
-      ref={ref}
-      className={`${
-        dragging ? 'bg-cyan-100' : ''
-      } transition-colors rounded-md`}
-    >
-      <Reorder.Item
+    <>
+      <motion.div
+        ref={ref}
         drag={draggable}
-        transition={{ duration: 0 }}
-        className={`relative bg-white rounded-md flex items-center transition-shadow ${
-          dragging && draggable
-            ? 'z-50 border-2 border-teal cursor-grabbing !shadow-xl'
-            : 'z-0'
-        } ${
-          draggable
-            ? `shadow-sm mb-3 border border-solid border-grey200 p-5 active:cursor-grabbing hover:cursor-grab`
-            : ''
-        }`}
-        // key={key}
-        value={value}
-        onDragStart={() => setDragging(true)}
-        onDragEnd={() => {
-          setDragging(false);
-          onDrop?.();
-        }}
+        dragListener={false}
+        className={`w-full flex mb-3 gap-x-3 ${
+          dragging ? 'bg-cyan-100' : ''
+        } transition-colors rounded-md`}
       >
-        <div className={`flex-1`}>{value?.label ?? 'Not Found'}</div>
-      </Reorder.Item>
-    </motion.div>
+        <Reorder.Item
+          drag={draggable}
+          dragListener={false}
+          dragControls={dragControls}
+          transition={{ duration: 0 }}
+          className={`relative w-full h-24 bg-white rounded-md flex items-center justify-center gap-x-6 transition-shadow ${
+            dragging && draggable
+              ? 'z-50 border-2 border-teal cursor-grabbing !shadow-xl'
+              : 'z-0'
+          } ${
+            draggable
+              ? `shadow-sm border border-solid border-grey200 p-5`
+              : ''
+          }`}
+          value={value}
+          onDragStart={() => setDragging(true)}
+          onDragEnd={() => {
+            setDragging(false);
+            onDrop?.();
+          }}
+        >
+          <button
+            onPointerDown={(e) => dragControls.start(e)}
+            className={'bg-slate-200 hover:bg-cyan-200 hover:cursor-grab active:cursor-grabbing justify-center items-center rounded h-full w-10'}
+          >
+            <span>🚀</span>
+          </button>
+          <div className={'h-full w-0.5 bg-gray-200'}></div>
+          <div className={`flex-1`}>{value?.label ?? 'Not Found'}</div>
+        </Reorder.Item>
+      </motion.div>
+    </>
   );
 };
