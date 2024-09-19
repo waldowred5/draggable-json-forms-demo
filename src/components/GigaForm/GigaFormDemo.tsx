@@ -5,8 +5,8 @@ import { sectionLayoutTester } from '../../testers/sectionLayoutTester';
 import { useMemo, useState } from 'react';
 import { GigaForm } from './GigaForm';
 import initialFormSchema from '../../schemata/gigaFormSchema.json';
-import initialFormUiSchema from '../../schemata/gigaFormUiSchemaNested.json';
-// import initialFormUiSchema from '../../schemata/gigaFormUiSchema.json';
+// import initialFormUiSchema from '../../schemata/gigaFormUiSchemaNested.json';
+import initialFormUiSchema from '../../schemata/gigaFormUiSchema.json';
 import InteractiveFormSectionLayout from '../renderers/InteractiveFormSectionLayout';
 import {
   SchemaContext,

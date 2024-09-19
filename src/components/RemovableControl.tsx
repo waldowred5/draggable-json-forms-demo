@@ -47,7 +47,7 @@ const RemoveableControl = (props: ControlProps & { schema: { renderer?: string }
   };
 
   return (
-    <Reorder.Item
+    <div
       key={props.uischema}
       // ref={ref}
       // draggable={true}
@@ -61,14 +61,6 @@ const RemoveableControl = (props: ControlProps & { schema: { renderer?: string }
       value={props.uischema}
     >
       <div className={'flex items-start gap-x-4'}>
-        <div>
-          <button
-            className={'bg-slate-200 hover:bg-slate-300 hover:cursor-grab active:cursor-grabbing flex flex-col text-white justify-center items-center font-bold text-md rounded mt-3 h-14 w-9'}
-            onPointerDown={(e) => dragControls.start(e)}
-          >
-            <span>💃🏽</span>
-          </button>
-        </div>
         <Component {...props} />
         <button
           className={'bg-red-200 hover:bg-red-500 text-white text-bo font-bold text-2xl rounded mt-3 h-14 w-14 font-outline-2'}
@@ -77,7 +69,7 @@ const RemoveableControl = (props: ControlProps & { schema: { renderer?: string }
           ☠️
         </button>
       </div>
-    </Reorder.Item>
+    </div>
   );
 };
 

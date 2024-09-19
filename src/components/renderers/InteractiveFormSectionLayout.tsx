@@ -99,10 +99,10 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
               EDIT
             </button>
           </div>
-          <Reorder.Group
-            onReorder={setElements}
-            values={elements}
-          >
+          {/*<Reorder.Group*/}
+          {/*  onReorder={setElements}*/}
+          {/*  values={elements}*/}
+          {/*>*/}
             <MaterialLayoutRenderer
               uischema={uischema}
               schema={schema}
@@ -152,7 +152,7 @@ const SectionLayout = ({ uischema, schema, path, visible, renderers, label }: Pr
                 </button>
               </div>
             </div>
-          </Reorder.Group>
+          {/*</Reorder.Group>*/}
         </div>
         : null}
     </>
