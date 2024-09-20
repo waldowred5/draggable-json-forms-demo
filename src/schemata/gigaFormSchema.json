@@ -7,7 +7,6 @@
     }
   },
   "required": [
-    "formTitle",
-    "question_0191fff8-01ec-7558-ae15-f7894fed24e1"
+    "formTitle"
   ]
 }

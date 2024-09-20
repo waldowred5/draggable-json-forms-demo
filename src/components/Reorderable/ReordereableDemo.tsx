@@ -55,7 +55,7 @@ export const ReorderableDemo = () => {
       onReorder={setGroups}
     >
       {groups.map((item, index) => {
-        console.log('outer item', item);
+        // console.log('outer item', item);
 
         return (
           <DraggableGroup value={item} key={item.key} draggable={true}/>

@@ -18,7 +18,7 @@ export const DraggableGroup = (
     // children,
   }: PropsWithChildren<Props>
 ) => {
-  const [groups, setGroups] = useState(value.elements);
+  const [elements, setElements] = useState(value.elements);
   const [dragging, setDragging] = useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
   const dragControls = useDragControls();
@@ -33,6 +33,7 @@ export const DraggableGroup = (
       } transition-colors rounded-md`}
     >
       <Reorder.Item
+        value={value}
         drag={draggable}
         dragListener={false}
         dragControls={dragControls}
@@ -46,7 +47,6 @@ export const DraggableGroup = (
             ? `shadow-sm mb-3 border border-solid border-grey200 p-5`
             : ''
         }`}
-        value={value}
         onDragStart={() => setDragging(true)}
         onDragEnd={() => {
           setDragging(false);
@@ -64,11 +64,11 @@ export const DraggableGroup = (
         </div>
         <Reorder.Group
           axis="y"
-          values={groups}
-          onReorder={setGroups}
+          values={elements}
+          onReorder={setElements}
           className={'flex flex-col w-full'}
         >
-          {groups.map((item) => {
+          {elements.map((item) => {
             return (
               item?.elements?.length > 0 ? (
                 <DraggableGroup value={item} key={item.key} draggable={true} />

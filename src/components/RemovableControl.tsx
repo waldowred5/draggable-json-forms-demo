@@ -1,12 +1,10 @@
 import { withJsonFormsControlProps } from '@jsonforms/react';
 import { Unwrapped } from '@jsonforms/material-renderers';
 import { ControlProps } from '@jsonforms/core';
-import { JSX, useContext, useRef, useState } from 'react';
+import React, { JSX, useContext, useRef, useState } from 'react';
 import { SchemaContext, SchemaUIContext } from '../context/Contexts';
-import { findAndAddOrRemoveNestedObjectInSchema } from '../utils/findAndAddOrRemoveNestedObjectInSchema';
 import { removeQuestions } from '../utils/removeQuestions';
-import { Reorder } from 'framer-motion';
-import { useFormRef } from '../utils/useFormRef';
+import { Reorder, useDragControls, motion } from 'framer-motion';
 
 // interface RatingControlProps {
 //   data: number;
@@ -27,6 +25,10 @@ const RemoveableControl = (props: ControlProps & { schema: { renderer?: string }
   const [formUiSchema, setFormUiSchema] = useContext(SchemaUIContext);
 
   const ref = useRef<HTMLDivElement>(null);
+  const dragControls = useDragControls();
+
+  const [draggable, setDraggable] = useState(true);
+  const [dragging, setDragging] = useState(false);
 
   // console.log('props', props);
 
@@ -47,29 +49,50 @@ const RemoveableControl = (props: ControlProps & { schema: { renderer?: string }
   };
 
   return (
-    <div
-      key={props.uischema}
-      // ref={ref}
-      // draggable={true}
-      // drag={true}
-      // dragListener={false}
-      // dragControls={dragControls}
-      // transition={{ duration: 0, ease: 'linear' }}
-      // dragElastic={0.9}
-      // dragMomentum={false}
-      // dragConstraints={formRef}
-      value={props.uischema}
+    <motion.div
+      ref={ref}
+      drag={draggable}
+      dragListener={false}
+      className={`flex flex-grow border border-slate-400 rounded-lg mb-4 w-full ${
+        dragging ? 'bg-cyan-100' : ''
+      } transition-colors rounded-md`}
     >
-      <div className={'flex items-start gap-x-4'}>
-        <Component {...props} />
-        <button
-          className={'bg-red-200 hover:bg-red-500 text-white text-bo font-bold text-2xl rounded mt-3 h-14 w-14 font-outline-2'}
-          onClick={onClick}
-        >
-          ☠️
-        </button>
-      </div>
-    </div>
+      <Reorder.Item
+        key={`${props.uischema}`}
+        value={props.uischema}
+        drag={draggable}
+        dragListener={false}
+        dragControls={dragControls}
+        transition={{ duration: 0 }}
+        className={`w-full relative bg-white rounded-md flex flex-grow flex-col items-start transition-shadow ${
+          dragging && draggable
+            ? 'z-50 border-2 border-teal cursor-grabbing !shadow-xl'
+            : 'z-0'
+        } ${
+          draggable
+            ? `shadow-sm border border-solid border-grey200 p-5`
+            : ''
+        }`}
+        onDragStart={() => setDragging(true)}
+        onDragEnd={() => setDragging(false)}
+      >
+        <div className={'flex items-start gap-x-4'}>
+          <button
+            onPointerDown={(e) => dragControls.start(e)}
+            className={'bg-slate-200 hover:bg-cyan-200 hover:cursor-grab active:cursor-grabbing justify-center items-center rounded h-full w-10'}
+          >
+            <span>🚀</span>
+          </button>
+          <Component {...props} />
+          <button
+            className={'bg-red-200 hover:bg-red-500 text-white text-bo font-bold text-2xl rounded mt-3 h-14 w-14 font-outline-2'}
+            onClick={onClick}
+          >
+            ☠️
+          </button>
+        </div>
+      </Reorder.Item>
+    </motion.div>
   );
 };
 

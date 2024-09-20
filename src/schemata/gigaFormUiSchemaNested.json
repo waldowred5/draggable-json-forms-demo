@@ -7,6 +7,18 @@
     },
     {
       "type": "Group",
+      "label": "Section 2",
+      "id": "section_0191eac4-9cf6-711c-90f8-cfda1d0e206f",
+      "elements": []
+    },
+    {
+      "type": "Group",
+      "label": "Section 3",
+      "id": "section_019209c6-9f12-7ccb-9a31-808c62e0344f",
+      "elements": []
+    },
+    {
+      "type": "Group",
       "label": "Section 1",
       "id": "section_0191eac4-8f3a-711c-90f8-adc88d0ca215",
       "elements": [
@@ -28,6 +40,15 @@
                   "options": {
                     "slider": false
                   }
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/question_019209b1-b97f-7223-aa8a-9b2167b35a6c",
+                  "id": "question_019209b1-b97f-7223-aa8a-9b2167b35a6c",
+                  "label": "When did you first hear about GigaForms?",
+                  "options": {
+                    "slider": false
+                  }
                 }
               ]
             },
@@ -46,12 +67,6 @@
           "elements": []
         }
       ]
-    },
-    {
-      "type": "Group",
-      "label": "Section 2",
-      "id": "section_0191eac4-9cf6-711c-90f8-cfda1d0e206f",
-      "elements": []
     }
   ]
 }

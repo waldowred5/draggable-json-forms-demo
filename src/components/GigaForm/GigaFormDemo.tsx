@@ -4,9 +4,10 @@ import RatingControl from '../RatingControl';
 import { sectionLayoutTester } from '../../testers/sectionLayoutTester';
 import { useMemo, useState } from 'react';
 import { GigaForm } from './GigaForm';
-import initialFormSchema from '../../schemata/gigaFormSchema.json';
-// import initialFormUiSchema from '../../schemata/gigaFormUiSchemaNested.json';
-import initialFormUiSchema from '../../schemata/gigaFormUiSchema.json';
+import initialFormSchema from '../../schemata/gigaFormSchemaNested.json';
+// import initialFormSchema from '../../schemata/gigaFormSchema.json';
+import initialFormUiSchema from '../../schemata/gigaFormUiSchemaNested.json';
+// import initialFormUiSchema from '../../schemata/gigaFormUiSchema.json';
 import InteractiveFormSectionLayout from '../renderers/InteractiveFormSectionLayout';
 import {
   SchemaContext,
@@ -18,14 +19,15 @@ import {
 } from '../../context/Contexts';
 import { removeableControlTester } from '../../testers/removeableControlTester';
 import RemovableControl from '../RemovableControl';
+import { formLayoutTester } from '../../testers/formLayoutTester';
+import { InteractiveFormLayout } from '../renderers/InteractiveFormLayout';
 
 const renderers = [
   ...materialRenderers,
-  // register custom renderers
+  { tester: formLayoutTester, renderer: InteractiveFormLayout },
   { tester: ratingControlTester, renderer: RatingControl },
-  // { tester: sectionLayoutTester, renderer: sectionLayout }
   { tester: sectionLayoutTester, renderer: InteractiveFormSectionLayout },
-  { tester: removeableControlTester, renderer: RemovableControl }
+  { tester: removeableControlTester, renderer: RemovableControl },
 ];
 
 export const GigaFormDemo = () => {
@@ -93,18 +95,18 @@ export const GigaFormDemo = () => {
                       <div className={'flex rounded-max bg-slate-600'}>
                         <pre className={'p-4 text-white text-wrap'}>Form UI Schema: {stringifiedFormUiSchema}</pre>
                       </div>
-                      {/*<div className={'flex rounded-max bg-slate-600'}>*/}
-                      {/*  <pre className={'p-4 text-white'}>Form Data: {stringifiedFormData}</pre>*/}
-                      {/*</div>*/}
-                      {/*<div className={'flex rounded-max bg-slate-600'}>*/}
-                      {/*  <pre className={'p-4 text-white'}>Section Data: {stringifiedSectionData}</pre>*/}
-                      {/*</div>*/}
-                      {/*<div className={'flex rounded-max bg-slate-600'}>*/}
-                      {/*  <pre className={'p-4 text-white'}>Question Data: {stringifiedQuestionData}</pre>*/}
-                      {/*</div>*/}
-                      {/*<div className={'flex rounded-max bg-slate-600'}>*/}
-                      {/*  <pre className={'p-4 text-white'}>Current Question Data: {stringifiedCurrentQuestionData}</pre>*/}
-                      {/*</div>*/}
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Form Data: {stringifiedFormData}</pre>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Section Data: {stringifiedSectionData}</pre>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Question Data: {stringifiedQuestionData}</pre>
+                      </div>
+                      <div className={'flex rounded-max bg-slate-600'}>
+                        <pre className={'p-4 text-white'}>Current Question Data: {stringifiedCurrentQuestionData}</pre>
+                      </div>
                     </div>
                   </div>
                 </div>

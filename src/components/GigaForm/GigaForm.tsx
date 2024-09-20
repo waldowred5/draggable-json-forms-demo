@@ -1,20 +1,22 @@
 import { materialCells } from '@jsonforms/material-renderers';
-import { JsonForms } from '@jsonforms/react';
+import { JsonForms, JsonFormsDispatch } from '@jsonforms/react';
 import { AddSection } from '../AddSection';
-import { useContext, useMemo, useRef, useState } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import {
   SchemaContext,
   SchemaUIContext,
   FormDataContext,
   SectionContext,
   QuestionsContext,
-  CurrentQuestionContext,
+  CurrentQuestionContext
 } from '../../context/Contexts';
+import { Reorder } from 'framer-motion';
+import InteractiveFormSectionLayout from '../renderers/InteractiveFormSectionLayout';
 
 export const GigaForm = (
   {
     renderers,
-    formErrors,
+    formErrors
   }: any) => {
   const [formSchema, setFormSchema] = useContext(SchemaContext);
   const [formUiSchema, setFormUiSchema] = useContext(SchemaUIContext);
@@ -27,8 +29,7 @@ export const GigaForm = (
   const [isEditingQuestion, setIsEditingQuestion] = useState(false);
   const [isEditingSection, setIsEditingSection] = useState(false);
 
-  const formRef = useRef<HTMLDivElement>(null);
-
+  const [draggableGroups, setDraggableGroups] = useState(formUiSchema.elements.filter((element: any) => element.type === 'Group'));
   const isFormEmpty = useMemo(() => {
     return Object.keys(formData).length === 0;
   }, [formData]);
@@ -44,7 +45,7 @@ export const GigaForm = (
   };
 
   return (
-    <div className={'flex w-full'} ref={formRef} >
+    <div className={'flex w-full'}>
       {!isEditingForm && isFormEmpty
         ? <div>
           <button
@@ -80,7 +81,7 @@ export const GigaForm = (
             </div>
           }
           <JsonForms
-            formRef={formRef}
+            // formRef={formRef}
             data={formData}
             schema={formSchema}
             uischema={formUiSchema}
@@ -91,11 +92,50 @@ export const GigaForm = (
             readonly={!isEditingForm}
             // readonly={true}
           />
+          {/*  <Reorder.Group*/}
+          {/*    axis="y"*/}
+          {/*    values={draggableGroups}*/}
+          {/*    onReorder={setDraggableGroups}*/}
+          {/*  >*/}
+          {/*    {formUiSchema.elements.map((element: any) => {*/}
+          {/*      return (*/}
+          {/*        <JsonFormsDispatch*/}
+          {/*          key={element.id}*/}
+          {/*          uischema={element}*/}
+          {/*          schema={element.schema}*/}
+          {/*          path={element.path}*/}
+          {/*          visible={element.visible}*/}
+          {/*          renderers={renderers}*/}
+          {/*        />*/}
+          {/*      );*/}
+          {/*    })}*/}
+
+          {/*    /!*{draggableGroups.map((group: any) => {*!/*/}
+          {/*    /!*    return (*!/*/}
+          {/*    /!*      <InteractiveFormSectionLayout />*!/*/}
+          {/*    /!*    );*!/*/}
+          {/*    /!*  }*!/*/}
+          {/*    /!*)}*!/*/}
+          {/*  </Reorder.Group>*/}
+          {/*</JsonForms>*/}
+
+          {/*<JsonForms*/}
+          {/*  // formRef={formRef}*/}
+          {/*  data={formData}*/}
+          {/*  schema={formSchema}*/}
+          {/*  uischema={formUiSchema}*/}
+          {/*  renderers={renderers}*/}
+          {/*  additionalErrors={formErrors}*/}
+          {/*  cells={materialCells}*/}
+          {/*  onChange={({ data }) => setFormData(data)}*/}
+          {/*  readonly={!isEditingForm}*/}
+          {/*  // readonly={true}*/}
+          {/*/>*/}
           {isEditingForm && !isEditingSection
             ? <div className={'border-2 border-dashed border-slate-500 rounded-md'}>
               <div className={'flex flex-col items-center justify-center w-full'}>
                 <button className={'hover:bg-slate-100 w-full h-32 text-slate-700 font-semibold rounded-md'}
-                  onClick={() => setIsEditingSection(!isEditingSection)}
+                        onClick={() => setIsEditingSection(!isEditingSection)}
                 >
                   <h1>+</h1>
                   <h1>Add Section</h1>

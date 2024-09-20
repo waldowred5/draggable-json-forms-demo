@@ -14,6 +14,8 @@ const SectionLayout = (props) => {
     renderers
   };
 
+  console.log('layoutProps', layoutProps);
+
   const onAddClick = () => {
     console.log('onAddClick');
   };
