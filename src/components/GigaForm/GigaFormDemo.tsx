@@ -93,18 +93,18 @@ export const GigaFormDemo = () => {
                       <div className={'flex rounded-max bg-slate-600'}>
                         <pre className={'p-4 text-white text-wrap'}>Form UI Schema: {stringifiedFormUiSchema}</pre>
                       </div>
-                      <div className={'flex rounded-max bg-slate-600'}>
-                        <pre className={'p-4 text-white'}>Form Data: {stringifiedFormData}</pre>
-                      </div>
-                      <div className={'flex rounded-max bg-slate-600'}>
-                        <pre className={'p-4 text-white'}>Section Data: {stringifiedSectionData}</pre>
-                      </div>
-                      <div className={'flex rounded-max bg-slate-600'}>
-                        <pre className={'p-4 text-white'}>Question Data: {stringifiedQuestionData}</pre>
-                      </div>
-                      <div className={'flex rounded-max bg-slate-600'}>
-                        <pre className={'p-4 text-white'}>Current Question Data: {stringifiedCurrentQuestionData}</pre>
-                      </div>
+                      {/*<div className={'flex rounded-max bg-slate-600'}>*/}
+                      {/*  <pre className={'p-4 text-white'}>Form Data: {stringifiedFormData}</pre>*/}
+                      {/*</div>*/}
+                      {/*<div className={'flex rounded-max bg-slate-600'}>*/}
+                      {/*  <pre className={'p-4 text-white'}>Section Data: {stringifiedSectionData}</pre>*/}
+                      {/*</div>*/}
+                      {/*<div className={'flex rounded-max bg-slate-600'}>*/}
+                      {/*  <pre className={'p-4 text-white'}>Question Data: {stringifiedQuestionData}</pre>*/}
+                      {/*</div>*/}
+                      {/*<div className={'flex rounded-max bg-slate-600'}>*/}
+                      {/*  <pre className={'p-4 text-white'}>Current Question Data: {stringifiedCurrentQuestionData}</pre>*/}
+                      {/*</div>*/}
                     </div>
                   </div>
                 </div>
